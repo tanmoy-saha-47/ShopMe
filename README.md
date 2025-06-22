@@ -21,9 +21,12 @@ ShopMe is a beginner-friendly e-commerce website built using **Next.js (App Rout
 ## 🧑‍💻 Tech Stack
 
 - Frontend: React, Next.js(App Router).
-  -Styling: CSS Modules.
-  -State Management: useState, useEffect.
-  -Routing: Next.js dynamic routing.
+- Styling: CSS Modules.
+- State Management: useState, useEffect.
+- Routing: Next.js dynamic routing.
+  
+
+
 
 ---
 
@@ -32,3 +35,12 @@ ShopMe is a beginner-friendly e-commerce website built using **Next.js (App Rout
 - Add a real database, backend
 - Implement cart and checkout flow
 - Add authentication and user profiles.
+
+## Screenshots
+![image](https://github.com/user-attachments/assets/a0faaced-bed0-4015-99e8-b03d05a7a2c5)
+![image](https://github.com/user-attachments/assets/ca0db1fa-813d-417e-9b47-d74e6283fe4c)
+![image](https://github.com/user-attachments/assets/8482a8f7-5dc7-467a-91ed-e3ec5b2bb1b2)
+
+
+
+
