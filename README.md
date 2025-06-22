@@ -12,9 +12,10 @@ ShopMe is a beginner-friendly e-commerce website built using **Next.js (App Rout
 - ✅ Protected "Explore" button — redirects to products only if logged in
 - ✅ Responsive layout (basic styling)
 - ✅ Logout functionality
+- ✅ Signup page
 - 🔜 Product detail pages
 - 🔜 Cart functionality
-- 🔜 Signup page
+
 
 ---
 
