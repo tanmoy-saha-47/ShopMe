@@ -14,7 +14,17 @@ export default function SignUpPage() {
     e.preventDefault();
     if (fullname && userId && email && password) {
       console.log("Signup completed", { fullname, userId, email, password });
-      router.push("/");
+
+      const user = {
+        fullname: fullname.trim(),
+        userId: userId.trim(),
+        email: email.trim(),
+        password: password.trim(),
+      };
+
+      localStorage.setItem("userdata", JSON.stringify(user));
+      console.log("User signed in succesfully", user);
+      router.push("/components/Login");
     } else {
       console.log("Please fill all the fields");
     }
@@ -27,6 +37,7 @@ export default function SignUpPage() {
         <input
           type="text"
           placeholder="Full Name"
+          id="fullname"
           value={fullname}
           onChange={(e) => setFullname(e.target.value)}
           required
@@ -35,6 +46,7 @@ export default function SignUpPage() {
         <input
           type="text"
           placeholder="Username"
+          id="userId"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           required
@@ -43,6 +55,7 @@ export default function SignUpPage() {
         <input
           type="email"
           placeholder="Email"
+          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -50,14 +63,16 @@ export default function SignUpPage() {
         />
         <input
           type="Password"
-          placeholder="password"
+          placeholder="Password"
+          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           className={styles.input}
         />
+        <button className={styles.button}>Submit</button>
       </form>
-      <button className={styles.button}>Submit</button>
+
       <p className={styles.text}>
         Already have an account?{""}
         <a href="/components/Login" className={styles.link}>

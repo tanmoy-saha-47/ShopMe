@@ -15,6 +15,7 @@ export default function Navbar() {
         <Link href="/cart">Cart</Link>
         <Link href="/components/Login">Login</Link>
         <Link href="/components/SignUp">Signup</Link>
+        <Link href="/components/Logout">Logout</Link>
       </div>
     </nav>
   );
