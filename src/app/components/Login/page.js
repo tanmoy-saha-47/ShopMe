@@ -5,24 +5,25 @@ import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [userId, setUserId] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!userId.trim() || !password.trim()) {
+    if (!name.trim() || !password.trim()) {
       setError("Please fill in all the fields");
       return;
     }
 
     const userData = {
-      userId: userId.trim(),
+      name: name.trim(),
       password: password.trim(),
     };
 
-    localStorage.setItem("userdata", JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
     console.log("User logged in succesfully", userData);
+
     router.push("/");
   };
 
@@ -33,8 +34,8 @@ export default function LoginPage() {
         <input
           type="text"
           placeholder="UserName"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           required
           className={styles.input}
         />

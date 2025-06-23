@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,15 +17,15 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("userdata");
+    const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      const userData = JSON.parse(storedUser);
+      const user = JSON.parse(storedUser);
       setloggedIn(true);
 
-      setUserName(userData.userId);
+      setUserName(user.name);
     } else {
       setloggedIn(false);
-      setUserName("Guest");
+      router.push("/components/Login");
     }
   }, []);
 
@@ -41,7 +41,10 @@ export default function HomePage() {
   return (
     <>
       <div className={styles.intro}>
-        <h1 className={styles.header}>Welcome {userName}</h1>
+        <h1 className={styles.header}>
+          {userName ? `Hello, ${userName} ` : "Welcome to ShopMe"}
+        </h1>
+
         <p className={styles.text}>
           You have arrived at the right place. Browse through our wide range of
           products. Start shopping now!
