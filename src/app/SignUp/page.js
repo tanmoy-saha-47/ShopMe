@@ -6,25 +6,25 @@ import styles from "./SignUpPage.module.css";
 export default function SignUpPage() {
   const router = useRouter();
   const [fullname, setFullname] = useState("");
-  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (fullname && userId && email && password) {
-      console.log("Signup completed", { fullname, userId, email, password });
+    if (fullname && userName && email && password) {
+      console.log("Signup completed", { fullname, userName, email, password });
 
       const user = {
         fullname: fullname.trim(),
-        userId: userId.trim(),
+        userName: userName.trim(),
         email: email.trim(),
         password: password.trim(),
       };
 
       localStorage.setItem("userdata", JSON.stringify(user));
       console.log("User signed in succesfully", user);
-      router.push("/components/Login");
+      router.push("/Login");
     } else {
       console.log("Please fill all the fields");
     }
@@ -47,8 +47,8 @@ export default function SignUpPage() {
           type="text"
           placeholder="Username"
           id="userId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
           required
           className={styles.input}
         />
@@ -75,7 +75,7 @@ export default function SignUpPage() {
 
       <p className={styles.text}>
         Already have an account?{""}
-        <a href="/components/Login" className={styles.link}>
+        <a href="/Login" className={styles.link}>
           Login
         </a>
       </p>

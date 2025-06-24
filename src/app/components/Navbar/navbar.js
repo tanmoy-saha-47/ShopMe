@@ -6,11 +6,16 @@ import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     console.log("Stored useer in navbar:", storedUser);
+    if (storedUser) {
+      const data = JSON.parse(storedUser);
+      setUser(data.name);
+    }
     setLoggedIn(!!storedUser);
   }, []);
 
@@ -18,14 +23,18 @@ export default function Navbar() {
     localStorage.removeItem("user");
     console.log("User Loggedout succesfully");
     setLoggedIn(false);
-    router.push("/components/Login");
+    setUser(null);
+    router.refresh();
+    router.push("/Login");
   };
 
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}> 🛒 ShopMe </div>
       <p className={styles.description}>
-        "👌Trusted by all 👌 🛍️24*7 Open 🛍️ 🚚Home delivery available!🚚"
+        {user
+          ? `Welcome, ${user},Happy Shopping!`
+          : "Welcome to ShopMe, Login to explore our products!"}
       </p>
       <div className={styles.links}>
         <Link href="/">Home</Link>
@@ -35,7 +44,7 @@ export default function Navbar() {
         {!loggedIn ? (
           <>
             <Link href="/Login">Login</Link>
-            <Link href="/Signup">Signup</Link>
+            <Link href="/SignUp">Signup</Link>
           </>
         ) : (
           <span
