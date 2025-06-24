@@ -22,9 +22,10 @@ export default function ProductList() {
 
   return (
     <div className={styles.container}>
-      <h1>Product List</h1>
-      <p>Here you can find a variety of products available for purchase.</p>
-      <p>Browse through our categories and discover amazing deals!</p>
+      <h1 className={styles.head}>Product List</h1>
+      <p className={styles.para}>
+        Here you can find a variety of products available for purchase.
+      </p>
 
       {products.length === 0 ? (
         <p>Loading . . . . . </p>

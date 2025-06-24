@@ -34,8 +34,8 @@ export default function Navbar() {
 
         {!loggedIn ? (
           <>
-            <Link href="/components/Login">Login</Link>
-            <Link href="/components/Signup">Signup</Link>
+            <Link href="/Login">Login</Link>
+            <Link href="/Signup">Signup</Link>
           </>
         ) : (
           <span

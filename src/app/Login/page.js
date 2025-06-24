@@ -55,7 +55,7 @@ export default function LoginPage() {
       </form>
       <p className={styles.text}>
         Don't have an account?,{" "}
-        <a href="/components/SignUp" className={styles.link}>
+        <a href="/SignUp" className={styles.link}>
           Signup Now
         </a>
       </p>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
   const [checkingLogin, setCheckingLogin] = useState(true);
@@ -14,7 +14,13 @@ export default function HomePage() {
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => res.json())
-      .then((data) => setProducts(data.slice(0, 12)));
+      .then((data) => {
+        console.log(data);
+        const uniqueCategories = [
+          ...new Set(data.map((item) => item.category)),
+        ];
+        setCategories(uniqueCategories);
+      });
   }, []);
 
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!checkingLogin && !loggedIn) {
       const timer = setTimeout(() => {
-        router.push("/components/Login");
+        router.push("/Login");
       }, 1000);
 
       return () => clearTimeout(timer);
@@ -44,13 +50,24 @@ export default function HomePage() {
 
   const handleExplore = () => {
     if (loggedIn) {
-      router.push("/components/products");
+      router.push("/products");
     } else {
       alert("Please login first.");
-      router.push("/components/Login");
+      router.push("/Login");
     }
   };
   if (checkingLogin) return <div>Loading. . . </div>;
+
+  const categoryImages = {
+    electronics:
+      "https://images.pexels.com/photos/218863/pexels-photo-218863.jpeg?cs=srgb&dl=pexels-jeshoots-218863.jpg&fm=jpg",
+    jewelery: " https://images.pexels.com/photos/17834/pexels-photo.jpg ",
+    "men's clothing":
+      "https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg",
+    "women's clothing":
+      "https://images.pexels.com/photos/6311396/pexels-photo-6311396.jpeg",
+  };
+
   return (
     <>
       <div className={styles.intro}>
@@ -66,15 +83,18 @@ export default function HomePage() {
           Explore now
         </button>
       </div>
-      {/* ⭐ Featured Products Section */}
+
       <section className={styles.featured}>
-        <h2>⭐ Featured Products</h2>
-        <div className={styles.productGrid}>
-          {products.map((item) => (
-            <div key={item.id} className={styles.productCard}>
-              <img src={item.image} alt={item.title} />
-              <h4>{item.title.slice(0, 30)}...</h4>
-              <p>${item.price}</p>
+        <h2> 🌟 Our Products</h2>
+        <div className={styles.categoryGrid}>
+          {categories.map((category, index) => (
+            <div key={index} className={styles.categoryCard}>
+              <img
+                src={categoryImages[category]}
+                alt={category}
+                className={styles.categoryImages}
+              />
+              <h3>{category}</h3>
             </div>
           ))}
         </div>
