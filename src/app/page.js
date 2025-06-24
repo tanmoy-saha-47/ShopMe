@@ -8,6 +8,7 @@ export default function HomePage() {
   const [products, setProducts] = useState([]);
   const [loggedIn, setloggedIn] = useState(false);
   const [userName, setUserName] = useState(null);
+  const [checkingLogin, setCheckingLogin] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,16 +19,28 @@ export default function HomePage() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+    console.log("Stored user in homepage:", storedUser);
+
     if (storedUser) {
       const user = JSON.parse(storedUser);
       setloggedIn(true);
-
       setUserName(user.name);
     } else {
       setloggedIn(false);
-      router.push("/components/Login");
     }
+
+    setCheckingLogin(false);
   }, []);
+
+  useEffect(() => {
+    if (!checkingLogin && !loggedIn) {
+      const timer = setTimeout(() => {
+        router.push("/components/Login");
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [checkingLogin, loggedIn, router]);
 
   const handleExplore = () => {
     if (loggedIn) {
@@ -37,7 +50,7 @@ export default function HomePage() {
       router.push("/components/Login");
     }
   };
-
+  if (checkingLogin) return <div>Loading. . . </div>;
   return (
     <>
       <div className={styles.intro}>

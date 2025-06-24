@@ -24,7 +24,9 @@ export default function LoginPage() {
     localStorage.setItem("user", JSON.stringify(userData));
     console.log("User logged in succesfully", userData);
 
-    router.push("/");
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 100);
   };
 
   return (
