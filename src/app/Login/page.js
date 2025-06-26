@@ -1,13 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useUser } from "../context/UserContext";
 import { useRouter } from "next/navigation";
 import styles from "./LoginPage.module.css";
+import { useState } from "react";
 
 export default function LoginPage() {
-  const router = useRouter();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const { login } = useUser();
+  const router = useRouter();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -20,13 +21,11 @@ export default function LoginPage() {
       name: name.trim(),
       password: password.trim(),
     };
-
-    localStorage.setItem("user", JSON.stringify(userData));
-    console.log("User logged in succesfully", userData);
-
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 100);
+    login(userData);
+    router.push("/");
+    // setTimeout(() => {
+    //   window.location.href = "/";
+    // }, 100);
   };
 
   return (

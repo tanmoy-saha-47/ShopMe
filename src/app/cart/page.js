@@ -1,12 +1,19 @@
 "use client";
 import { useCart } from "../context/CartContext";
 import styles from "./cartPage.module.css";
+import { useUser } from "../context/UserContext";
 
 export default function CartPage() {
+  const { user } = useUser();
   const { cartItems, removeFromCart } = useCart();
   const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   return (
     <div className={styles.container}>
+      <h1 className={styles.head}>
+        {user
+          ? `Hello, ${user.name}. Lets checkout your Cart!`
+          : " Welcome to your Cart!"}
+      </h1>
       <div className={styles.wrapper}>
         <h1 className={styles.heading}>Your Cart</h1>
 

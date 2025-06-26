@@ -1,14 +1,13 @@
 "use client";
 import styles from "./homePage.module.css";
-import { useEffect, useState } from "react";
+import { useUser } from "./context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function HomePage() {
   const [categories, setCategories] = useState([]);
-  const [loggedIn, setloggedIn] = useState(false);
-  const [userName, setUserName] = useState(null);
-  const [checkingLogin, setCheckingLogin] = useState(true);
+  const { user } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -23,40 +22,14 @@ export default function HomePage() {
       });
   }, []);
 
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    console.log("Stored user in homepage:", storedUser);
-
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      setloggedIn(true);
-      setUserName(user.name);
-    } else {
-      setloggedIn(false);
-    }
-
-    setCheckingLogin(false);
-  }, []);
-
-  useEffect(() => {
-    if (!checkingLogin && !loggedIn) {
-      const timer = setTimeout(() => {
-        router.push("/Login");
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [checkingLogin, loggedIn, router]);
-
   const handleExplore = () => {
-    if (loggedIn) {
+    if (user) {
       router.push("/products");
     } else {
       alert("Please login first.");
       router.push("/Login");
     }
   };
-  if (checkingLogin) return <div>Loading. . . </div>;
 
   const categoryImages = {
     electronics:
@@ -72,7 +45,7 @@ export default function HomePage() {
     <>
       <div className={styles.intro}>
         <h1 className={styles.header}>
-          {userName ? `Hello, ${userName} ` : "Welcome to ShopMe"}
+          {user ? `Hello, ${user.name} ` : "Welcome to ShopMe"}
         </h1>
 
         <p className={styles.text}>
